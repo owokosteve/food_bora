@@ -2,10 +2,10 @@ namespace foodbora;
 
 public class ListManager
 {
-    List<User> users = new();
-    List<Food> foods = new();
-    List<Order> orders = new();
-    List<Cart> carts = new();
+   public  List<User> users = new();
+    public List<Food> foods = new();
+    public List<Order> orders = new();
+   public List<Cart> carts = new();
 
     public void AddUser(User user) => users.Add(user);
     public void AddFood(Food food) => foods.Add(food);
