@@ -11,4 +11,11 @@ public class ListManager
     public void AddFood(Food food) => foods.Add(food);
     public void AddOrder(Order order) => orders.Add(order);
     public void AddCart(Cart cart) => carts.Add(cart);
+
+    public static User GetUser(string user_id)
+    {
+        User user = users.Find(user => user.UserID == user_id);
+        return user;
+    }
+
 }
