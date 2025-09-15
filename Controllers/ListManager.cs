@@ -15,7 +15,7 @@ public class ListManager
 
     public static User GetUser(string user_id)
     {
-        User user = users.Find(user => user.UserID == user_id);
+        User user = users.Find(user => user.UserID == user_id)!;
         return user;
     }
     public static void Display(List<Food> foods)
@@ -26,7 +26,14 @@ public class ListManager
         }
     }
 
-    public List<Order> GetOrders(List<Order> orders, User user, bool isOrderStatus)
+    public static void Display(List<Order> orders)
+    {
+        Console.WriteLine($"\n{new String('-', 60)}\n{"OrderID",-10}{"OrderDate",-10}{"TotalPrice",-10}{"OrderStatus",-10}\n{new String('-', 60)}");
+        orders.ForEach(item => Console.WriteLine($"{item.OrderId,-10}{item.OrderDate.ToShortDateString(),-15}{item.TotalPrice,-10}{item.OrderStatus,-10}"));
+        Console.WriteLine(new String('-', 60) + "\n");
+    }
+
+    public static List<Order> GetOrders(List<Order> orders, User user, bool isOrderStatus)
     {
         if (isOrderStatus)
         {

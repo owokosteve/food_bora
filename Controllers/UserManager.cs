@@ -6,6 +6,7 @@ namespace foodbora
     public class UserManager
     {
         ListManager list = new ListManager();
+        List<User> users = ListManager.users;
         public string? ID;
         public void MainMenu()
         {
@@ -93,7 +94,7 @@ namespace foodbora
         {
             Console.WriteLine("To Login please enter USER ID for verification:");
             ID = Console.ReadLine()!.ToUpper().Trim();
-            var verify = list.users.Find(x => x.UserID == ID);
+            var verify = users.Find(x => x.UserID == ID);
 
 
             if (verify != null)
@@ -129,7 +130,7 @@ namespace foodbora
         {
             Console.WriteLine($"| User ID   |   Name  | FatherName | gender   |     Mail ID     |Mobile   |  WorkStation | WalletBalance|");
             System.Console.WriteLine("***********************************************************************************************************");
-            foreach (var item in list.users)
+            foreach (var item in users)
             {
                 if (item.UserID == ID)
                 {

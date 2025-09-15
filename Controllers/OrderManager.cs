@@ -6,7 +6,7 @@ namespace foodbora
         List<Food> foods = ListManager.foods;
         List<Order> orders = ListManager.orders;
         List<Cart> carts = ListManager.carts;
-       
+
         public void OrderFood(User user)
 
         {
@@ -174,21 +174,20 @@ namespace foodbora
         }
 
         public void ReturnItemsToFoodList(List<Cart> wishlist)
-    {
-        foreach (var item in foods)
         {
-            foreach (var x in wishlist)
+            foreach (var item in foods)
             {
-                if (x.FoodId == item.FoodID)
+                foreach (var x in wishlist)
                 {
-                    item.AvailableQuantity += x.OrderQuantity;
+                    if (x.FoodId == item.FoodID)
+                    {
+                        item.AvailableQuantity += x.OrderQuantity;
+                    }
                 }
             }
         }
-    }
 
-    }
-  public void ModifyOrder(User user)
+        public void ModifyOrder(User user)
         {
             //Showing Logged-In User Details
             Console.WriteLine("USER ORDER DETAILS:");
@@ -296,18 +295,18 @@ namespace foodbora
                 }
             }
         }
-                                      
+
         //cancel food order
         public void CancelOrder(User user, List<Order> orders, List<Cart> carts)
         {
-            var userOrder = GetOrders(orders, user, true);
+            var userOrder = ListManager.GetOrders(orders, user, true);
             if (!userOrder.Any())
             {
                 Console.WriteLine("No order to cancel");
             }
             else
             {
-                Display(userOrder);
+                ListManager.Display(userOrder);
                 Console.WriteLine("Enter the order ID you want to cancel:  ");
                 string orderId = Console.ReadLine()!.Trim().ToUpper();
 
@@ -317,7 +316,7 @@ namespace foodbora
                 {
                     var getItemList = carts.FindAll(x => x.OrderId == orderId);
                     user.WalletRecharge(getOrder.TotalPrice);
-                    ReturnItemsToFoodList(foods, getItemList);
+                    ReturnItemsToFoodList(getItemList);
                     getOrder.OrderStatus = OrderStatus.Cancelled;
                     Console.WriteLine("order cancelled succesfully!");
 
@@ -329,14 +328,15 @@ namespace foodbora
         //order history
         public void OrderHistory(User user, List<Order> order)
         {
-            var userOrder = operations.GetOrders(order, user, false);
+            var userOrder = ListManager.GetOrders(order, user, false);
             if (!userOrder.Any())
             {
                 Console.WriteLine("No history currently");
             }
             else
             {
-                Display(userOrder);
+                ListManager.Display(userOrder);
             }
         }
+    }
 }
