@@ -25,13 +25,24 @@ public class ListManager
         }
     }
 
-    public static void Display(List<Cart> carts)
+    public List<Order> GetOrders(List<Order> orders, User user, bool isOrderStatus)
     {
-        foreach (var cart in carts)
+        if (isOrderStatus)
         {
-            Console.WriteLine();
+            return orders.FindAll(o => o.UserId == user.UserID && o.OrderStatus == OrderStatus.Ordered);
+        }
+        else
+        {
+            return orders.FindAll(o => o.UserId == user.UserID);
         }
     }
 
+    public static void Display(List<Cart> cartItems)
+    {
+        foreach (var cart in cartItems)
+        {
+            Console.WriteLine("{0,-10}{1,-15}{2,-20}{3,-15}{4,-10}", cart.FoodId, cart.ItemId, cart.OrderId, cart.OrderQuantity, cart.OrderPrice);
+        }
+    }
 }
 
