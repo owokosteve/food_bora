@@ -1,6 +1,7 @@
 namespace foodbora
 {
-   public  enum OrderStatus
+
+    public enum OrderStatus
     {
         Initiated = 0,
         Ordered = 1,
@@ -14,7 +15,6 @@ namespace foodbora
         public decimal TotalPrice { get; set; }
         public OrderStatus OrderStatus { get; set; }
         private static int counter = 1001;
-
         public Order(string userId, DateTime orderDate, decimal totalPrice, OrderStatus orderStatus)
         {
             OrderId = $"OID{counter++}";
