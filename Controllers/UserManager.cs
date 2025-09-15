@@ -1,9 +1,5 @@
-// rEGISTER
-// lOGIN
-// Show profile
+
 using System.Text.RegularExpressions;
-
-
 
 namespace foodbora
 {
