@@ -1,3 +1,3 @@
-// rEGISTER
-// lOGIN
+// REGISTER
+// LOGIN
 // Show profile
