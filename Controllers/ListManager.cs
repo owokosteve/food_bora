@@ -17,5 +17,12 @@ public class ListManager
         User user = users.Find(user => user.UserID == user_id);
         return user;
     }
+    public static void Display(List<Food> foods)
+    {
+        foreach (var food in foods)
+        {
+            Console.WriteLine($"{food.FoodID,-10} {food.FoodName,-15} {food.FoodPrice,-10} {food.AvailableQuantity,-10}");
+        }
+    }
 
 }
