@@ -8,34 +8,34 @@ namespace foodbora
         ListManager list = new ListManager();
         List<User> users = ListManager.users;
         public string? ID;
-        public void MainMenu()
-        {
+        // public void MainMenu()
+        // {
 
-            bool IsMain = true;
-            do
-            {
-                Console.WriteLine("Welcome to FOOD BORA CAFETERIA\n Enter an Operation to Continue\n 1. User Registration\n 2. User Login\n 3. Exit ");
-                int option = int.Parse(Console.ReadLine()!.Trim());
-                if (option == 1)
-                {
-                    Registration();
-                }
-                else if (option == 2)
-                {
-                    Login();
-                }
-                else if (option == 3)
-                {
-                    IsMain = false;
-                }
-                else
-                {
-                    Console.WriteLine("Invalid User input.. Try again.");
+        //     bool IsMain = true;
+        //     do
+        //     {
+        //         Console.WriteLine("Welcome to FOOD BORA CAFETERIA\n Enter an Operation to Continue\n 1. User Registration\n 2. User Login\n 3. Exit ");
+        //         int option = int.Parse(Console.ReadLine()!.Trim());
+        //         if (option == 1)
+        //         {
+        //             Registration();
+        //         }
+        //         else if (option == 2)
+        //         {
+        //             Login();
+        //         }
+        //         else if (option == 3)
+        //         {
+        //             IsMain = false;
+        //         }
+        //         else
+        //         {
+        //             Console.WriteLine("Invalid User input.. Try again.");
 
 
-                }
-            } while (IsMain);
-        }
+        //         }
+        //     } while (IsMain);
+        // }
         public void Registration()
         {
             Console.WriteLine("Enter your User name :");

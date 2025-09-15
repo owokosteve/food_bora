@@ -14,10 +14,10 @@ public  class Program
             switch (option)
             {
                 case "1":
-                    Console.WriteLine("Registering...");
+                    new UserManager().Registration();
                     break;
                 case "2":
-                    Console.WriteLine("Loging in...");
+                    new UserManager().Login();
                     break;
                 case "3":
                     return;
