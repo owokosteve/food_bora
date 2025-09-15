@@ -7,7 +7,7 @@ public class ListManager
     public static List<Order> orders = new();
     public static List<Cart> carts = new();
 
-    public void AddUser(User user) => users.Add(user);
+    public  void AddUser(User user) => users.Add(user);
     public void AddFood(Food food) => foods.Add(food);
     public void AddOrder(Order order) => orders.Add(order);
     public void AddCart(Cart cart) => carts.Add(cart);
@@ -34,3 +34,4 @@ public class ListManager
     }
 
 }
+
