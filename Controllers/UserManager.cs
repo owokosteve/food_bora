@@ -9,7 +9,8 @@ namespace foodbora
 {
     public class UserManager
     {
-          ListManager list = new ListManager();
+        ListManager list = new ListManager();
+        public string? ID;
         public void MainMenu()
         {
 
@@ -69,14 +70,25 @@ namespace foodbora
 
             Console.WriteLine("Enter Gender");
             Gender gender = Enum.Parse<Gender>(Console.ReadLine()!.Trim().ToLower());
+            string workStationNumber;
+            bool IsWorkNumber = true;
+            do
+            {
+                Console.WriteLine("Enter Work station Number (WS101)");
+                workStationNumber = Console.ReadLine()!.Trim().ToUpper();
 
-            Console.WriteLine("Enter Work station Number (WS101)");
-            string workStationNumber = Console.ReadLine()!.Trim().ToUpper();
+                if (Regex.IsMatch(workStationNumber, @"^WS1\d{2}$"))
+                {
+                    IsWorkNumber = false;
+                }
+                else { Console.WriteLine("Invalid WorkStation Number"); }
+            } while (IsWorkNumber);
+
 
             Console.WriteLine("Enter the current Balance ");
             decimal balance = decimal.Parse(Console.ReadLine()!);
             User user = new User(name, fathername, gender, Mobile, mailID, workStationNumber, balance);
-          
+
             list.AddUser(user);
 
             Console.WriteLine($"******You have successfully registered******\n You USER ID is {user.UserID}");
@@ -84,38 +96,53 @@ namespace foodbora
         public void Login()
         {
             Console.WriteLine("To Login please enter USER ID for verification:");
-            string ID = Console.ReadLine()!.ToUpper().Trim();
-          
-            foreach (var Id in list.users)
+            ID = Console.ReadLine()!.ToUpper().Trim();
+            var verify = list.users.Find(x => x.UserID == ID);
+
+
+            if (verify != null)
             {
-                if (Id.UserID == ID)
+                bool IsSubMenu = true;
+                do
                 {
-                    bool IsSubMenu = true;
-                    do
+                    //SUBMENU
+                    Console.WriteLine("*********SUBMENU**********\n A. Show My Profile\n B. Food Order\n C. Modify Order\n D. Cancel Order\n E. Order History\n F. Wallet Recharge\n G. Show WalletBalance\n H. Exit\n Select An Option to Continue:");
+                    string Choice = Console.ReadLine()!.ToUpper().Trim();
+                    if (Choice == "A") { ShowMyProfile(); }
+                    else if (Choice == "B") { }
+                    else if (Choice == "C") { }
+                    else if (Choice == "D") { }
+                    else if (Choice == "E") { }
+                    else if (Choice == "F") { }
+                    else if (Choice == "G") { }
+                    else if (Choice == "H") { IsSubMenu = false; }
+                    else
                     {
-                        //SUBMENU
-                        Console.WriteLine("*********SUBMENU**********\n A. Show My Profile\n B. Food Order\n C. Modify Order\n D. Cancel Order\n E. Order History\n F. Wallet Recharge\n G. Show WalletBalance\n H. Exit\n Select An Option to Continue:");
-                        string Choice = Console.ReadLine()!.ToUpper().Trim();
-                        if (Choice == "A") { }
-                        else if (Choice == "B") { }
-                        else if (Choice == "C") { }
-                        else if (Choice == "D") { }
-                        else if (Choice == "E") { }
-                        else if (Choice == "F") { }
-                        else if (Choice == "G") { }
-                        else if (Choice == "H") { IsSubMenu = false; }
-                        else
-                        {
-                            Console.WriteLine("Invalid user input! Please Try Again");
-                        }
-                    } while (IsSubMenu);
-                }
-                else
-                {
-                    Console.WriteLine("User ID not found");
-                }
+                        Console.WriteLine("Invalid user input! Please Try Again");
+                    }
+                } while (IsSubMenu);
             }
+            else
+            {
+                Console.WriteLine("User ID not found");
+            }
+
+
         }
-     
+        public void ShowMyProfile()
+        {
+            Console.WriteLine($"| User ID   |   Name  | FatherName | gender   |     Mail ID     |Mobile   |  WorkStation | WalletBalance|");
+            System.Console.WriteLine("***********************************************************************************************************");
+            foreach (var item in list.users)
+            {
+                if (item.UserID == ID)
+                {
+                    Console.WriteLine($"{item.UserID,-15}{item.Name,-10}{item.FatherName,-10}{item.Gender,-15}{item.MailID,-15}  {item.Mobile,-15}{item.WorkStationNumber,-10}{item.WalletBalance,-15}");
+                }
+
+            }
+
+        }
     }
 }
+    
