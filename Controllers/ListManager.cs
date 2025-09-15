@@ -2,6 +2,7 @@ namespace foodbora;
 
 public class ListManager
 {
+
     public static List<User> users = new();
     public static List<Food> foods = new();
     public static List<Order> orders = new();

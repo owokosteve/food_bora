@@ -14,11 +14,11 @@ interface ITransaction
     decimal WalletRecharge(decimal amount);
     decimal DeductAmount(decimal amount);
 }
-public class User(string workStationNumber, decimal balance, string name, string fatherName, Gender gender, string mobile, string mailID) : PersonalDetails(name, fatherName, gender, mobile, mailID), ITransaction
 
+public class User(string name, string fatherName, Gender gender, string mobile, string mailID,string workStationNumber, decimal balance) : PersonalDetails(name, fatherName, gender, mobile, mailID), ITransaction
 {
     private static int counter = 1001;
-    public string UserID { get; set; } = $"SF{counter}++";
+    public string UserID { get; set; } = $"SF{counter++}";
     public string WorkStationNumber { get; set; } = workStationNumber;
     public decimal _balance = balance;
     public decimal WalletBalance { get { return _balance; } }
@@ -28,7 +28,7 @@ public class User(string workStationNumber, decimal balance, string name, string
      }
     public decimal DeductAmount(decimal amount)
     {
-        return _balance -= amount;
 
+        return _balance -= amount;
     }
 }
