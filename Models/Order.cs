@@ -1,12 +1,12 @@
 namespace foodbora
 {
-    enum OrderStatus
+    public enum OrderStatus
     {
         Initiated = 0,
         Ordered = 1,
         Cancelled = 2
     }
-    class Order
+    public class Order
     {
         public string OrderId { get; set; }
         public string UserId { get; set; }
