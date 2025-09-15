@@ -25,4 +25,12 @@ public class ListManager
         }
     }
 
+    public static void Display(List<Cart> carts)
+    {
+        foreach (var cart in carts)
+        {
+            Console.WriteLine();
+        }
+    }
+
 }
