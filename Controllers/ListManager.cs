@@ -8,15 +8,15 @@ public class ListManager
     public static List<Order> orders = new();
     public static List<Cart> carts = new();
 
-    public  void AddUser(User user) => users.Add(user);
+    public void AddUser(User user) => users.Add(user);
     public void AddFood(Food food) => foods.Add(food);
     public void AddOrder(Order order) => orders.Add(order);
     public void AddCart(Cart cart) => carts.Add(cart);
 
     public static User GetUser(string user_id)
     {
-        User user = users.Find(user => user.UserID == user_id);
-        return user;
+        User? user = users.Find(user => user.UserID == user_id);
+        return user!;
     }
     public static void Display(List<Food> foods)
     {
@@ -26,7 +26,7 @@ public class ListManager
         }
     }
 
-    public List<Order> GetOrders(List<Order> orders, User user, bool isOrderStatus)
+    public static List<Order> GetOrders(List<Order> orders, User user, bool isOrderStatus)
     {
         if (isOrderStatus)
         {
@@ -44,6 +44,27 @@ public class ListManager
         {
             Console.WriteLine("{0,-10}{1,-15}{2,-20}{3,-15}{4,-10}", cart.FoodId, cart.ItemId, cart.OrderId, cart.OrderQuantity, cart.OrderPrice);
         }
+    }
+
+    public static void Display(User user, List<Order> orders, bool isGeneral)
+    {
+        var userOrders = orders.FindAll(x => x.UserId == user.UserID);
+        if (isGeneral)
+        {
+            foreach (var u in userOrders.FindAll(x=>x.OrderStatus == OrderStatus.Ordered))
+            {
+
+                Console.WriteLine("{0,-10}{1,-15}{2,-20}{3,-15}{4,-10}", u.OrderId, u.UserId, u.OrderDate, u.OrderStatus,u.TotalPrice);
+            }
+        }
+        else
+        {
+            foreach (var u in userOrders)
+            {
+                Console.WriteLine("{0,-10}{1,-15}{2,-20}{3,-15}{4,-10}", u.OrderId, u.UserId, u.OrderDate, u.OrderStatus, u.TotalPrice);
+            }
+        }
+
     }
 }
 

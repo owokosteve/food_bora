@@ -6,7 +6,7 @@ namespace foodbora
         List<Food> foods = ListManager.foods;
         List<Order> orders = ListManager.orders;
         List<Cart> carts = ListManager.carts;
-       
+
         public void OrderFood(User user)
 
         {
@@ -174,32 +174,27 @@ namespace foodbora
         }
 
         public void ReturnItemsToFoodList(List<Cart> wishlist)
-    {
-        foreach (var item in foods)
         {
-            foreach (var x in wishlist)
+            foreach (var item in foods)
             {
-                if (x.FoodId == item.FoodID)
+                foreach (var x in wishlist)
                 {
-                    item.AvailableQuantity += x.OrderQuantity;
+                    if (x.FoodId == item.FoodID)
+                    {
+                        item.AvailableQuantity += x.OrderQuantity;
+                    }
                 }
             }
         }
-    }
 
-    }
   public void ModifyOrder(User user)
         {
             //Showing Logged-In User Details
             Console.WriteLine("USER ORDER DETAILS:");
-            var userOrder = orders.FindAll(x => x.UserId == user.UserID && x.OrderStatus == OrderStatus.Ordered);
+            var userOrder = ListManager.GetOrders(orders, user, true);
             foreach (var item in userOrder)
             {
-                Console.WriteLine(@$"Order ID:{item.OrderId}
-                User ID:{item.UserId}
-                Order Date:{item.OrderDate.ToString("dd MMMM yyyy")}
-                Order Status:{item.OrderStatus}
-                Total Price:{item.TotalPrice}");
+                Console.WriteLine($"Order ID:{item.OrderId}User ID:{item.UserId} Order Date:{item.OrderDate.ToShortTimeString()}Order Status:{item.OrderStatus} Total Price:{item.TotalPrice}");
             }
 
             //Verifying User Order ID
@@ -296,18 +291,18 @@ namespace foodbora
                 }
             }
         }
-                                      
+
         //cancel food order
         public void CancelOrder(User user, List<Order> orders, List<Cart> carts)
         {
-            var userOrder = GetOrders(orders, user, true);
+            var userOrder = ListManager.GetOrders(orders, user, true);
             if (!userOrder.Any())
             {
                 Console.WriteLine("No order to cancel");
             }
             else
             {
-                Display(userOrder);
+                ListManager.Display(user, orders, true);
                 Console.WriteLine("Enter the order ID you want to cancel:  ");
                 string orderId = Console.ReadLine()!.Trim().ToUpper();
 
@@ -317,7 +312,7 @@ namespace foodbora
                 {
                     var getItemList = carts.FindAll(x => x.OrderId == orderId);
                     user.WalletRecharge(getOrder.TotalPrice);
-                    ReturnItemsToFoodList(foods, getItemList);
+                    ReturnItemsToFoodList(getItemList);
                     getOrder.OrderStatus = OrderStatus.Cancelled;
                     Console.WriteLine("order cancelled succesfully!");
 
@@ -327,16 +322,18 @@ namespace foodbora
         }
 
         //order history
-        public void OrderHistory(User user, List<Order> order)
+        public void OrderHistory(User user, List<Order> orders)
         {
-            var userOrder = operations.GetOrders(order, user, false);
+            var userOrder = ListManager.GetOrders(orders, user, false);
             if (!userOrder.Any())
             {
                 Console.WriteLine("No history currently");
             }
             else
             {
-                Display(userOrder);
+                ListManager.Display(user, orders, true);
             }
         }
+    }
 }
+
