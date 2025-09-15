@@ -28,7 +28,7 @@ public class User(string workStationNumber, decimal balance, string name, string
      }
     public decimal DeductAmount(decimal amount)
     {
-                return _balance -= amount;
+        return _balance -= amount;
 
     }
 }
