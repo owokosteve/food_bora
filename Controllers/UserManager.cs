@@ -5,7 +5,10 @@ namespace foodbora
 {
     public class UserManager
     {
-        ListManager list = new ListManager();
+       // ListManager list = new ListManager();
+        List<User> users = ListManager.users;
+        List<Order> orders = ListManager.orders;
+        List<Cart> cart = ListManager.carts;
         public string? ID;
         public void MainMenu()
         {
@@ -85,7 +88,7 @@ namespace foodbora
             decimal balance = decimal.Parse(Console.ReadLine()!);
             User user = new User(name, fathername, gender, Mobile, mailID, workStationNumber, balance);
 
-            list.AddUser(user);
+            users.Add(user);
 
             Console.WriteLine($"******You have successfully registered******\n You USER ID is {user.UserID}");
         }
@@ -93,7 +96,7 @@ namespace foodbora
         {
             Console.WriteLine("To Login please enter USER ID for verification:");
             ID = Console.ReadLine()!.ToUpper().Trim();
-            var verify = list.users.Find(x => x.UserID == ID);
+            var verify = users.Find(x => x.UserID == ID);
 
 
             if (verify != null)
@@ -104,11 +107,12 @@ namespace foodbora
                     //SUBMENU
                     Console.WriteLine("*********SUBMENU**********\n A. Show My Profile\n B. Food Order\n C. Modify Order\n D. Cancel Order\n E. Order History\n F. Wallet Recharge\n G. Show WalletBalance\n H. Exit\n Select An Option to Continue:");
                     string Choice = Console.ReadLine()!.ToUpper().Trim();
+                    OrderManager order = new OrderManager();
                     if (Choice == "A") { ShowMyProfile(); }
-                    else if (Choice == "B") { }
-                    else if (Choice == "C") { }
-                    else if (Choice == "D") { }
-                    else if (Choice == "E") { }
+                    else if (Choice == "B") { order.OrderFood(verify); }
+                    else if (Choice == "C") { order.OrderFood(verify); }
+                    else if (Choice == "D") { order.CancelOrder(verify, orders, cart); }
+                    else if (Choice == "E") { order.OrderHistory(verify, orders); }
                     else if (Choice == "F") { }
                     else if (Choice == "G") { }
                     else if (Choice == "H") { IsSubMenu = false; }
@@ -129,7 +133,7 @@ namespace foodbora
         {
             Console.WriteLine($"| User ID   |   Name  | FatherName | gender   |     Mail ID     |Mobile   |  WorkStation | WalletBalance|");
             System.Console.WriteLine("***********************************************************************************************************");
-            foreach (var item in list.users)
+            foreach (var item in users)
             {
                 if (item.UserID == ID)
                 {

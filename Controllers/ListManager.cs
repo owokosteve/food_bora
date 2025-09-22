@@ -8,7 +8,7 @@ public class ListManager
     public static List<Order> orders = new();
     public static List<Cart> carts = new();
 
-    public  void AddUser(User user) => users.Add(user);
+    public void AddUser(User user) => users.Add(user);
     public void AddFood(Food food) => foods.Add(food);
     public void AddOrder(Order order) => orders.Add(order);
     public void AddCart(Cart cart) => carts.Add(cart);
@@ -26,7 +26,7 @@ public class ListManager
         }
     }
 
-    public List<Order> GetOrders(List<Order> orders, User user, bool isOrderStatus)
+    public static List<Order> GetOrders(List<Order> orders, User user, bool isOrderStatus)
     {
         if (isOrderStatus)
         {
@@ -43,6 +43,13 @@ public class ListManager
         foreach (var cart in cartItems)
         {
             Console.WriteLine("{0,-10}{1,-15}{2,-20}{3,-15}{4,-10}", cart.FoodId, cart.ItemId, cart.OrderId, cart.OrderQuantity, cart.OrderPrice);
+        }
+    }
+    public static void Display(List<Order> orders)
+    {
+        foreach (var order in orders)
+        {
+            Console.WriteLine("{0,-10}{1,-15}{2,-20}{3,-15}{4,-10}", order.OrderId,order.OrderDate,order.TotalPrice,order.OrderStatus,order.UserId);
         }
     }
 }

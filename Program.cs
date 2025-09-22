@@ -4,7 +4,7 @@ public  class Program
     static void Main(string[] args)
     {
         Console.WriteLine("\n---WELOME TO FOOD BORA HOTEL---");
-
+        UserManager operations = new UserManager();
         do
         {
             Console.WriteLine("\n[1] Register\n[2] Login\n[3] Exit");
@@ -14,10 +14,12 @@ public  class Program
             switch (option)
             {
                 case "1":
-                    Console.WriteLine("Registering...");
+                    operations.Registration();
+                    //Console.WriteLine("Registering...");
                     break;
                 case "2":
-                    Console.WriteLine("Loging in...");
+                    operations.Login();
+                   // Console.WriteLine("Loging in...");
                     break;
                 case "3":
                     return;
