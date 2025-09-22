@@ -203,19 +203,19 @@ public class OrderManager
         }
 
         //Verifying User Order ID
-        Console.WriteLine("Enter Order ID to continue");
+        Console.WriteLine("Enter Order ID to continue : ");
 
         string orderId = Console.ReadLine()!.ToUpper().Trim();
         var selectedOrder = userOrder.Find(x => x.OrderId == orderId)!;
 
         if (selectedOrder == null)
         {
-            Console.WriteLine("Invalid Order ID");
+            Console.WriteLine("Invalid Order ID : ");
         }
         else
         {
             //Showing  User Cart Details
-            Console.WriteLine("\nCART ITEM DETAILS:");
+            Console.WriteLine("\nCART ITEM DETAILS: ");
             Console.WriteLine(new string('.', 50));
 
             var activeCart = carts.FindAll(x => x.OrderId == selectedOrder.OrderId);
@@ -231,7 +231,7 @@ public class OrderManager
                 Console.WriteLine(new string('.', 50));
             }
             // Verifying Item ID
-            Console.WriteLine("Enter Item ID to continue");
+            Console.WriteLine("Enter Item ID to continue: ");
             string item_Id = Console.ReadLine()!.ToUpper().Trim();
 
             Cart? selectedItem = activeCart.Find(x => x.ItemId == item_Id);
@@ -303,7 +303,7 @@ public class OrderManager
         var userOrder = ListManager.GetOrders(orders, user, true);
         if (!userOrder.Any())
         {
-            Console.WriteLine("No order to cancel");
+            Console.WriteLine("No order to cancel: ");
         }
         else
         {

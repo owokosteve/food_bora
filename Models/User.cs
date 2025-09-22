@@ -7,7 +7,7 @@ public class PersonalDetails(string name, string fatherName, Gender gender, stri
     public string MailID { get; set; } = mailID;
 }
 
-public enum Gender{male,female,transgender}
+public enum Gender{Male,Female,Transgender}
 interface ITransaction
 {
     decimal WalletBalance { get;  }
