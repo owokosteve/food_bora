@@ -15,11 +15,11 @@ public  class Program
             {
                 case "1":
                     operations.Registration();
-                    //Console.WriteLine("Registering...");
+                    
                     break;
                 case "2":
                     operations.Login();
-                   // Console.WriteLine("Loging in...");
+                   
                     break;
                 case "3":
                     return;
