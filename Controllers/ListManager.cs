@@ -2,11 +2,92 @@ namespace foodbora;
 
 public class ListManager
 {
+    static string usersCSV = "CSVfiles/users.csv";
+    static string ordersCSV = "CSVfiles/orders.csv";
+    static string cartCSV = "CSVfiles/cart_items.csv";
+    static string foodsCSV = "CSVfiles/foods.csv";
 
-    public static List<User> users = new();
-    public static List<Food> foods = new();
-    public static List<Order> orders = new();
-    public static List<Cart> carts = new();
+    public static List<User> users = ReadUsersFromCSV();
+    public static List<Food> foods = ReadFoodFromCSV();
+    public static List<Order> orders = ReadOrdersFromCSV();
+    public static List<Cart> carts = ReadCartFromCSV();
+
+    public static void CreateDirectory()
+    {
+        string folderPath = "CSVfiles";
+        if (!Directory.Exists(folderPath))
+            Directory.CreateDirectory(folderPath);
+    }
+    public static void CreateCsvFiles()
+    {
+        if (!File.Exists(usersCSV))
+            File.Create(usersCSV);
+        if (!File.Exists(ordersCSV))
+            File.Create(ordersCSV);
+        if (!File.Exists(cartCSV))
+            File.Create(cartCSV);
+        if (!File.Exists(foodsCSV))
+            File.Create(foodsCSV);
+    }
+
+    public static List<User> ReadUsersFromCSV()
+    {
+        List<User> users = new();
+        var lines = File.ReadAllLines(usersCSV);
+
+        foreach (var line in lines)
+        {
+            var values = line.Split(',');
+            // User(string name, string fatherName, Gender gender, string mobile, string mailID,string workStationNumber, decimal balance) 
+            var user = new User(values[1],values[2],Enum.Parse<Gender>(values[5]),values[3],values[4],values[6],Convert.ToDecimal(values[7])) { UserID = values[0] };
+            users.Add(user);
+        }
+        return users;
+    }
+
+    public static List<Order> ReadOrdersFromCSV()
+    {
+        List<Order> orders = new();
+        var lines = File.ReadAllLines(ordersCSV);
+
+        foreach (var line in lines)
+        {
+            var values = line.Split(',');
+            // (string userId, DateTime orderDate, decimal totalPrice, OrderStatus orderStatus)
+            var order = new Order(values[1],Convert.ToDateTime(values[2]),decimal.Parse(values[3]),Enum.Parse<OrderStatus>(values[4])) { OrderId = values[0]};
+            orders.Add(order);
+        }
+        return orders;
+    }
+
+    public static List<Cart> ReadCartFromCSV()
+    {
+        List<Cart> cart = new();
+        var lines = File.ReadAllLines(cartCSV);
+
+        foreach (var line in lines)
+        {
+            var values = line.Split(',');
+            // (string order, string food, decimal price, int quantity)
+            var cartItem = new Cart(values[1],values[2],decimal.Parse(values[3]),int.Parse(values[4])) { ItemId = values[0]};
+            cart.Add(cartItem);
+        }
+        return cart;
+    }
+
+    public static List<Food> ReadFoodFromCSV()
+    {
+        List<Food> foods = new();
+        var lines = File.ReadAllLines(foodsCSV);
+
+        foreach (var line in lines)
+        {
+            var values = line.Split(',');
+            var food = new Food { FoodID = values[0], FoodName = values[1], FoodPrice = decimal.Parse(values[2]), AvailableQuantity = int.Parse(values[3]) };
+            foods.Add(food);
+        }
+        return foods;
+    }
 
     public void AddUser(User user) => users.Add(user);
     public void AddFood(Food food) => foods.Add(food);
